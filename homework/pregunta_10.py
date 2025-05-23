@@ -12,7 +12,7 @@ def pregunta_10():
     valores de la columna `c2` para el archivo `tbl0.tsv`.
 
     Rta/
-                                 c2
+                                c2
     c1
     A               1:1:2:3:6:7:8:9
     B                 1:3:4:5:6:8:9
@@ -20,3 +20,16 @@ def pregunta_10():
     D                   1:2:3:5:5:7
     E   1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+
+    import pandas as pd
+
+    df = pd.read_csv('files/input/tbl0.tsv', sep='\t')
+
+    df = df.sort_values(['c1', 'c2'])
+
+    df['c2'] = df['c2'].astype(str)
+    # Agrupar y unir
+    resultado = df.groupby('c1')['c2'].apply(':'.join)
+    resultado = resultado.to_frame()
+
+    return (resultado)
